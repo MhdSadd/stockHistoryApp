@@ -35,7 +35,7 @@ const stockMarket = async (req, res) => {
 			);
 
 			let profitOverTime = stockData.map((pOT) => {
-				return pOT.Profit;
+				return pOT.dpdT;
 			});
 
 			res.status(200).json({
