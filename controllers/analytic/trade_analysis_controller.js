@@ -27,8 +27,8 @@ const stockMarket = async (req, res) => {
 			// Get the profit or loss on each stock bought based on price on the next buy action
 			stockData.map(
 				(a, b) => (
-					(a.Profit = (
-						-(a.dpdT - stock[b - 1]?.Price || 0) * a.Quantity
+					(a.dpdT = (
+						-(a.Price - stock[b - 1]?.Price || 0) * a.Quantity
 					).toFixed(2)),
 					a
 				)
