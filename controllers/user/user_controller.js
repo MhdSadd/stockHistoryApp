@@ -8,6 +8,7 @@ const { User } = require("../../models/auth/user_sign_up");
 
 const validateRegisterData = require("../../validations/register");
 
+
 //::::::::::::::Create User::::::::::::::::
 const createNewUser = async (req, res) => {
 	try {
@@ -79,4 +80,5 @@ const createNewUser = async (req, res) => {
 
 module.exports = {
 	createNewUser,
+	index
 };
