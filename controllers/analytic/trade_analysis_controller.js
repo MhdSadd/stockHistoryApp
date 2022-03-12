@@ -15,6 +15,7 @@ const stockMarket = async (req, res) => {
 			// return only selected properties
 			let stockData = stock.map((stock) => {
 				return {
+					Date: stock.Date,
 					Quantity: stock.Quantity,
 					Price: stock.Price,
 					Consideration: stock.Consideration,
@@ -27,7 +28,7 @@ const stockMarket = async (req, res) => {
 			stockData.map(
 				(a, b) => (
 					(a.Profit = (
-						-(a.Price - stock[b - 1]?.Price || 0) * a.Quantity
+						-(a.dpdT - stock[b - 1]?.Price || 0) * a.Quantity
 					).toFixed(2)),
 					a
 				)
@@ -39,7 +40,7 @@ const stockMarket = async (req, res) => {
 
 			res.status(200).json({
 				market: query,
-				dxdT: profitOverTime,
+				sum_dpdT: profitOverTime,
 				stock: stockData,
 			});
 		})
