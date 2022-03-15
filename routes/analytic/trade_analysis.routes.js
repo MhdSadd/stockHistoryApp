@@ -7,6 +7,6 @@ const auth = require("../../middlewares/auth_verifier");
 //@StockMarket List Route GET api/v1/trade-analysis
 //@description: get list of all stock that match the specified market
 //@access Private
-router.get("/stock/:query", stockMarket);
+router.get("/stock", stockMarket);
 
 module.exports = router;

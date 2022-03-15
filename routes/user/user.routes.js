@@ -1,4 +1,4 @@
-const { createNewUser } = require("../../controllers/user/user_controller");
+const { createNewUser} = require("../../controllers/user/user_controller");
 const router = require("express").Router();
 
 

@@ -2,7 +2,8 @@ const { Stock } = require("../../models/trade/stock");
 
 //::::::::::::::Stock Markets:::::::::::
 const stockMarket = async (req, res) => {
-	const query = req.params.query;
+	const query = req.query.query;
+
 	// console.log(query);
 	await Stock.find({ Market: query })
 		.then((stock) => {

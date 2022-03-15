@@ -88,6 +88,18 @@ const loginUser = (req, res) => {
 	}
 };
 
+const currentUser = (req, res) => {
+	passport.authenticate("jwt", { session: false }),
+		(req, res) => {
+			res.json({
+				email: req.user.email,
+				first_name: req.user.first_name,
+				last_name: req.user.last_name,
+			});
+		};
+};
+
 module.exports = {
 	loginUser,
+	currentUser,
 };
