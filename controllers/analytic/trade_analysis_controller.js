@@ -9,7 +9,8 @@ const stockMarket = async (req, res) => {
 		.then((stock) => {
 			if (stock.length === 0)
 				return res.status(404).json({
-					message: "No stock available under the search market",
+					msg: "No stock available under the search market",
+					success: false,
 					stock,
 				});
 
@@ -38,7 +39,11 @@ const stockMarket = async (req, res) => {
 			let profitOverTime = stockData.map((pOT) => {
 				return pOT.dpdT;
 			});
-
+			// let totalProfit = profitOverTime.map((profit) => {
+			// 	if (profit < 0 || profit === 0) {
+			// 		return profit +=
+			// 	}
+			// });
 			res.status(200).json({
 				market: query,
 				sum_dpdT: profitOverTime,
@@ -47,12 +52,35 @@ const stockMarket = async (req, res) => {
 		})
 		.catch((err) => {
 			res.status(404).json({
-				message: "No stock available under the search market",
+				msg: "No stock available under the search market",
+				success: false,
 				error: err,
 			});
 		});
 };
 
+const categories = async (req, res) => {
+	Stock.find({}).then((categories) => {
+		if (!categories.length > 0)
+			return res.status(404).json({
+				msg: "No category found",
+				success: false,
+				categories,
+			});
+		let allMarkets = categories.map((category) => {
+			return category.Market;
+		});
+		let uniqueMarket = allMarkets.filter((element, index) => {
+			return allMarkets.indexOf(element) === index;
+		});
+		res.status(200).json({
+			success: true,
+			categories: uniqueMarket.slice(0, 11),
+		});
+	});
+};
+
 module.exports = {
 	stockMarket,
+	categories,
 };
