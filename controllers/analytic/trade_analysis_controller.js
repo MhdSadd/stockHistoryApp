@@ -37,15 +37,29 @@ const stockMarket = async (req, res) => {
 			);
 
 			let profitOverTime = stockData.map((pOT) => {
-				return pOT.dpdT;
+				return Number(pOT.dpdT);
 			});
-			// let totalProfit = profitOverTime.map((profit) => {
-			// 	if (profit < 0 || profit === 0) {
-			// 		return profit +=
-			// 	}
-			// });
+
+			//::::::: Calculate gross profit and Loss::::::::::
+			let profits = profitOverTime
+				.filter((profit) => profit > 0)
+				.map((str) => {
+					return Number(str);
+				});
+
+			let losses = profitOverTime
+				.filter((loss) => loss <= 0)
+				.map((str) => {
+					return Number(str);
+				});
+
+			const totalProfit = profits.reduce((acc, curr) => acc + curr).toFixed(2);
+			const totalLoss = losses.reduce((acc, curr) => acc + curr).toFixed(2);
+
 			res.status(200).json({
 				market: query,
+				grossProfit: Number(totalProfit),
+				grossLoss: Number(totalLoss),
 				sum_dpdT: profitOverTime,
 				stock: stockData,
 			});
@@ -59,6 +73,7 @@ const stockMarket = async (req, res) => {
 		});
 };
 
+// list all market type
 const categories = async (req, res) => {
 	Stock.find({}).then((categories) => {
 		if (!categories.length > 0)
