@@ -8,9 +8,8 @@ const stockMarket = async (req, res) => {
 	await Stock.find({ Market: query })
 		.then((stock) => {
 			if (stock.length === 0)
-				return res.status(404).json({
+				return res.status(204).json({
 					msg: "No stock available under the search market",
-					success: false,
 					stock,
 				});
 
@@ -25,7 +24,6 @@ const stockMarket = async (req, res) => {
 				};
 			});
 
-			// if (stock.Direction === "BUY") {}
 			// Get the profit or loss on each stock bought based on price on the next buy action
 			stockData.map(
 				(a, b) => (
